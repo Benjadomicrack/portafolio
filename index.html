@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="es" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Specialist Portfolio | Cisco Certified</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Fira Code -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#080d16',
+                            card: '#0e1726',
+                            border: '#1b2a4a',
+                            neon: '#00ff9d',
+                            cyan: '#00f0ff',
+                            blue: '#0a84ff',
+                            darkText: '#8892b0'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Glowing & Glassmorphism styles */
+        body {
+            background-color: #080d16;
+            color: #e2e8f0;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 240, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(0, 255, 157, 0.04) 0%, transparent 40%),
+                linear-gradient(to right, rgba(27, 42, 74, 0.15) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(27, 42, 74, 0.15) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
+        }
+
+        .glass-card {
+            background: rgba(14, 23, 38, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(27, 42, 74, 0.8);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 240, 255, 0.5);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .glow-text-cyan {
+            text-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
+        }
+
+        .glow-text-neon {
+            text-shadow: 0 0 12px rgba(0, 255, 157, 0.6);
+        }
+
+        .cyber-border {
+            position: relative;
+        }
+
+        .cyber-border::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px; right: -1px; bottom: -1px;
+            background: linear-gradient(135deg, #00f0ff, transparent, #00ff9d);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0.3;
+            transition: opacity 0.3s;
+        }
+
+        .cyber-border:hover::before {
+            opacity: 0.8;
+        }
+
+        /* Scanline Overlay Effect for Interactive Terminal */
+        .scanline {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scanline::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080d16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1b2a4a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f0ff;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-slate-300">
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#080d16]/80 backdrop-blur-md border-b border-cyber-border/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="#hero" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-lg bg-cyber-card border border-cyber-cyan/30 flex items-center justify-center group-hover:border-cyber-cyan transition-all">
+                        <i class="fa-solid fa-shield-halved text-cyber-cyan text-xl group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <span class="font-mono text-lg font-bold tracking-wider text-white">CYBER<span class="text-cyber-cyan">.SEC</span></span>
+                </a>
+
+                <!-- Desktop Nav Navigation Links -->
+                <nav class="hidden md:flex items-center gap-8 font-mono text-sm">
+                    <a href="#about" class="hover:text-cyber-cyan transition-colors flex items-center gap-2"><span class="text-cyber-neon">//</span> 01. Sobre Mí</a>
+                    <a href="#certifications" class="hover:text-cyber-cyan transition-colors flex items-center gap-2"><span class="text-cyber-neon">//</span> 02. Certificados</a>
+                    <a href="#skills" class="hover:text-cyber-cyan transition-colors flex items-center gap-2"><span class="text-cyber-neon">//</span> 03. Skills</a>
+                    <a href="#terminal" class="hover:text-cyber-cyan transition-colors flex items-center gap-2"><span class="text-cyber-neon">//</span> 04. Terminal</a>
+                    <a href="#projects" class="hover:text-cyber-cyan transition-colors flex items-center gap-2"><span class="text-cyber-neon">//</span> 05. Labs</a>
+                </nav>
+
+                <!-- Action Button -->
+                <div class="hidden md:flex items-center">
+                    <a href="#contact" class="px-4 py-2 text-xs font-mono font-bold text-cyber-cyan border border-cyber-cyan/50 hover:bg-cyber-cyan/10 rounded-md transition-all shadow-[0_0_15px_rgba(0,240,255,0.2)] hover:shadow-[0_0_25px_rgba(0,240,255,0.4)]">
+                        &gt; CONTACTAR
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="p-2 text-slate-400 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cyber-card border-b border-cyber-border px-4 pt-2 pb-6 space-y-3 font-mono text-sm">
+            <a href="#about" class="block py-2 hover:text-cyber-cyan"><span class="text-cyber-neon">//</span> 01. Sobre Mí</a>
+            <a href="#certifications" class="block py-2 hover:text-cyber-cyan"><span class="text-cyber-neon">//</span> 02. Certificados</a>
+            <a href="#skills" class="block py-2 hover:text-cyber-cyan"><span class="text-cyber-neon">//</span> 03. Skills</a>
+            <a href="#terminal" class="block py-2 hover:text-cyber-cyan"><span class="text-cyber-neon">//</span> 04. Terminal</a>
+            <a href="#projects" class="block py-2 hover:text-cyber-cyan"><span class="text-cyber-neon">//</span> 05. Labs</a>
+            <a href="#contact" class="inline-block mt-2 px-4 py-2 text-xs font-mono font-bold text-cyber-cyan border border-cyber-cyan rounded">
+                &gt; CONTACTAR
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen pt-28 pb-16 flex items-center relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Main Intro Header -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyber-card border border-cyber-neon/30 text-cyber-neon text-xs font-mono">
+                        <span class="w-2 h-2 rounded-full bg-cyber-neon animate-pulse"></span>
+                        SISTEMA OPERATIVO &amp; ACTIVO // DISPONIBLE PARA PROYECTOS
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-none">
+                        Especialista en <br>
+                        <span class="bg-gradient-to-r from-cyber-cyan via-blue-400 to-cyber-neon bg-clip-text text-transparent glow-text-cyan">
+                            Ciberseguridad
+                        </span>
+                    </h1>
+
+                    <p class="text-slate-400 text-lg max-w-2xl leading-relaxed">
+                        Apasionado por la protección de infraestructura crítica, análisis de vulnerabilidades, auditorías de red y defensa en profundidad. Certificado oficialmente por <strong class="text-white">Cisco</strong> en fundamentos y prácticas defensivas de ciberseguridad.
+                    </p>
+
+                    <!-- CTAs & Status Buttons -->
+                    <div class="flex flex-wrap items-center gap-4 pt-4 font-mono">
+                        <a href="#certifications" class="px-6 py-3 bg-cyber-cyan text-cyber-bg font-bold rounded-lg hover:bg-cyber-neon transition-colors shadow-[0_0_20px_rgba(0,240,255,0.4)] flex items-center gap-2">
+                            <i class="fa-solid fa-award"></i> Ver Verificación Cisco
+                        </a>
+                        <a href="#terminal" class="px-6 py-3 border border-cyber-border bg-cyber-card hover:border-cyber-cyan text-white rounded-lg transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-terminal text-cyber-cyan"></i> Abrir Terminal CLI
+                        </a>
+                    </div>
+
+                    <!-- Quick Metrics -->
+                    <div class="grid grid-cols-3 gap-4 pt-8 border-t border-cyber-border/60 max-w-lg font-mono">
+                        <div>
+                            <p class="text-xs text-cyber-darkText uppercase">Nivel de Defensa</p>
+                            <p class="text-xl font-bold text-cyber-neon">Enterprise</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-cyber-darkText uppercase">Auditorías</p>
+                            <p class="text-xl font-bold text-cyber-cyan">100% Sec</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-cyber-darkText uppercase">Certificación</p>
+                            <p class="text-xl font-bold text-white">Cisco Verified</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Profile Card Graphic -->
+                <div class="lg:col-span-5">
+                    <div class="relative glass-card rounded-2xl p-6 border border-cyber-border shadow-2xl">
+                        <!-- Card Header -->
+                        <div class="flex items-center justify-between pb-4 border-b border-cyber-border font-mono text-xs text-slate-400">
+                            <span class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+                            </span>
+                            <span>ID: SEC-8094-CS</span>
+                        </div>
+
+                        <!-- Card Body / Hologram representation -->
+                        <div class="py-6 flex flex-col items-center text-center">
+                            <div class="relative mb-4">
+                                <div class="w-28 h-28 rounded-full bg-gradient-to-tr from-cyber-cyan to-cyber-neon p-1 animate-pulse">
+                                    <div class="w-full h-full bg-cyber-bg rounded-full flex items-center justify-center">
+                                        <i class="fa-solid fa-user-shield text-5xl text-cyber-cyan"></i>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-0 right-0 bg-cyber-neon text-cyber-bg p-1.5 rounded-full text-xs font-bold" title="Cisco Verified">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+
+                            <h3 class="text-xl font-bold text-white">Analista de Ciberseguridad</h3>
+                            <p class="text-xs font-mono text-cyber-cyan mt-1">&lt;SOC &amp; Network Security Specialist /&gt;</p>
+
+                            <div class="w-full mt-6 space-y-2 text-left text-xs font-mono">
+                                <div class="bg-cyber-bg/80 p-2.5 rounded border border-cyber-border flex justify-between">
+                                    <span class="text-slate-400">SOC Operations:</span>
+                                    <span class="text-cyber-neon font-semibold">Active Monitoring</span>
+                                </div>
+                                <div class="bg-cyber-bg/80 p-2.5 rounded border border-cyber-border flex justify-between">
+                                    <span class="text-slate-400">Certified Issuer:</span>
+                                    <span class="text-cyber-cyan font-semibold">Cisco Systems</span>
+                                </div>
+                                <div class="bg-cyber-bg/80 p-2.5 rounded border border-cyber-border flex justify-between">
+                                    <span class="text-slate-400">Credential Status:</span>
+                                    <span class="text-emerald-400 font-semibold flex items-center gap-1">
+                                        <i class="fa-solid fa-shield-check"></i> Verificado (Credly)
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Certifications & Credly Badge Integration -->
+    <section id="certifications" class="py-20 relative bg-cyber-card/40 border-y border-cyber-border/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-mono text-cyber-neon tracking-widest uppercase mb-2">// ACREDITACIÓN OFICIAL</h2>
+                <h3 class="text-3xl sm:text-4xl font-bold text-white">Certificación e Insignia de Cisco</h3>
+                <p class="text-slate-400 mt-3">
+                    Credencial digital oficial emitida por Cisco Systems y verificada mediante la plataforma Credly.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Embedded Credly Badge Section -->
+                <div class="lg:col-span-5 flex flex-col items-center justify-center">
+                    <div class="glass-card p-8 rounded-2xl border-2 border-cyber-cyan/30 flex flex-col items-center justify-center relative group w-full max-w-md shadow-lg">
+                        <div class="absolute -top-3 px-4 py-1 bg-cyber-cyan text-cyber-bg font-mono text-xs font-extrabold rounded-full tracking-wider uppercase">
+                            CREDENCIAL INTERACTIVA VERIFICADA
+                        </div>
+
+                        <!-- CREDLY EMBED CODE INTEGRATION -->
+                        <div class="my-4 flex items-center justify-center min-h-[270px]">
+                            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="7b80a0b3-344e-42ab-8b50-c640f1566bff" data-share-badge-host="https://www.credly.com"></div>
+                            <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+                        </div>
+
+                        <p class="text-xs text-slate-400 text-center font-mono mt-2">
+                            <i class="fa-solid fa-arrow-pointer text-cyber-cyan animate-bounce"></i> Interactúa con la insignia original para verificar en Credly
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Certification Details & Knowledge breakdown -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="glass-card p-6 rounded-xl space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="p-3 bg-cyber-cyan/10 rounded-lg text-cyber-cyan text-2xl">
+                                <i class="fa-solid fa-certificate"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white">Cisco Cybersecurity Certification</h4>
+                                <p class="text-xs font-mono text-cyber-neon">Emisor: Cisco Systems | Credly ID Validado</p>
+                            </div>
+                        </div>
+
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Esta certificación acredita conocimientos teórico-prácticos en fundamentos de seguridad de la información, protección de endpoints, redes informáticas, evaluación de amenazas y mitigación de riesgos bajo los estándares globales de Cisco.
+                        </p>
+
+                        <!-- Key Knowledge Modules Covered -->
+                        <div class="space-y-3 pt-2">
+                            <h5 class="text-xs font-mono text-slate-400 uppercase tracking-wider">Habilidades Verificadas por Cisco:</h5>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
+                                <div class="flex items-center gap-2 p-2 bg-cyber-bg/60 rounded border border-cyber-border">
+                                    <i class="fa-solid fa-check-double text-cyber-neon"></i>
+                                    <span>Fundamentos de Redes &amp; TCP/IP</span>
+                                </div>
+                                <div class="flex items-center gap-2 p-2 bg-cyber-bg/60 rounded border border-cyber-border">
+                                    <i class="fa-solid fa-check-double text-cyber-neon"></i>
+                                    <span>Control de Acceso &amp; Criptografía</span>
+                                </div>
+                                <div class="flex items-center gap-2 p-2 bg-cyber-bg/60 rounded border border-cyber-border">
+                                    <i class="fa-solid fa-check-double text-cyber-neon"></i>
+                                    <span>Análisis de Amenazas &amp; Vulnerabilidades</span>
+                                </div>
+                                <div class="flex items-center gap-2 p-2 bg-cyber-bg/60 rounded border border-cyber-border">
+                                    <i class="fa-solid fa-check-double text-cyber-neon"></i>
+                                    <span>Seguridad en Capas (Defense in Depth)</span>
+                                </div>
+                                <div class="flex items-center gap-2 p-2 bg-cyber-bg/60 rounded border border-cyber-border">
+                                    <i class="fa-solid fa-check-double text-cyber-neon"></i>
+                                    <span>Incident Response &amp; Forensics</span>
+                                </div>
+                                <div class="flex items-center gap-2 p-2 bg-cyber-bg/60 rounded border border-cyber-border">
+                                    <i class="fa-solid fa-check-double text-cyber-neon"></i>
+                                    <span>Políticas de Seguridad &amp; Cumplimiento</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Direct Link verification button -->
+                        <div class="pt-4 border-t border-cyber-border/60 flex items-center justify-between">
+                            <span class="text-xs text-slate-400 font-mono">Verificación pública y transparente</span>
+                            <a href="https://www.credly.com/badges/7b80a0b3-344e-42ab-8b50-c640f1566bff" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-mono text-cyber-cyan hover:underline">
+                                Abrir en Credly <i class="fa-solid fa-up-right-from-square"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Core Skills & Tools Grid -->
+    <section id="skills" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-mono text-cyber-cyan tracking-widest uppercase mb-2">// COMPETENCIAS TÉCNICAS</h2>
+                <h3 class="text-3xl sm:text-4xl font-bold text-white">Habilidades &amp; Stack de Seguridad</h3>
+                <p class="text-slate-400 mt-3"> Herramientas, metódicas de trabajo y arquitectura de defensa aplicadas.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Skill 1 -->
+                <div class="glass-card p-6 rounded-xl relative group">
+                    <div class="w-12 h-12 rounded-lg bg-cyber-cyan/10 border border-cyber-cyan/30 flex items-center justify-center text-cyber-cyan text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-2">Network Security &amp; Firewalls</h4>
+                    <p class="text-slate-400 text-sm mb-4">
+                        Configuración de reglas de firewall, segmentación de VLANs, VPNs IPSec/SSL, análisis de tráfico con Wireshark.
+                    </p>
+                    <div class="flex flex-wrap gap-2 font-mono text-[11px]">
+                        <span class="px-2 py-1 rounded bg-cyber-bg border border-cyber-border text-slate-300">Cisco Packet Tracer</span>
+                        <span class="px-2 py-1 rounded bg-cyber-bg border border-cyber-border text-slate-300">Wireshark</span>
+                        <span class="px-2 py-1 rounded bg-cyber-bg border border-cyber-border text-slate-300">pfSense</span>
+                    </div>
+                </div>
+
+                <!-- Skill 2 -->
+                <div class="glass-card p-6 rounded-xl relative group">
+                    <div class="w-12 h-12 rounded-lg bg-cyber-neon/10 border border-cyber-neon/30 flex items-center justify-center text-cyber-neon text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-bug"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-2">Vulnerability Assessment</h4>
+                    <p class="text-slate-400 text-sm mb-4">
+                        Escaneo proactivo de activos, gestión de parches, identificación y priorización de riesgos utilizando la escala CVSS.
+                    </p>
+                    <div class="flex flex-wrap gap-2 font-mono text-[11px]">
+                        <span class="px-2 py-1 rounded bg-cyber-bg border border-cyber-border text-slate-300">Nmap</span>
+                        <span class="px-2 py-1 rounded bg-cyber-bg border border-cyber-border text-slate-300">Nessus</span>
+                        <span class="px-2 py-1 rounded bg-cyber-bg border border-cyber-border text-slate-300">OpenVAS</span>
+                    </div>
+                </div>
+
+                <!-- Skill 3 -->
+                <div class="glass-card p-6 rounded-xl relative group">
+                    <div class="w-12 h-12 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-user-ninja"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-2">Ethical Hacking &amp; Pentesting</h4>
+                    <p class="text-slate-400 text-sm mb-4">
+                        Fase de recon, explotación de vulnerabilidades conocidas en laboratorios controlados y redacción de reportes de remediación.
+                    </p>
+                    <div class="flex flex-wrap gap-2 font-mono text-[11px]">
+                        <span class="px-2 py-1 rounded bg-cyber-bg border border-cyber-border text-slate-300">Kali Linux</span>
+                        <span class="px-2 py-1 rounded bg-cyber-bg border border-cyber-border text-slate-300">Metasploit</span>
+                        <span class="px-2 py-1 rounded bg-cyber-bg border border-cyber-border text-slate-300">Burp Suite</span>
+                    </div>
+                </div>
+
+                <!-- Skill 4 -->
+                <div class="glass-card p-6 rounded-xl relative group">
+                    <div class="w-12 h-12 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-terminal"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-2">Linux &amp; Systems Hardening</h4>
+                    <p class="text-slate-400 text-sm mb-4">
+                        Administración avanzada de sistemas Bash/Linux, bastionado de servidores, políticas SSH, gestión de permisos y logs.
+                    </p>
+                    <div class="flex flex-wrap gap-2 font-mono text-[11px]">
+                        <span class="px-2 py-1 rounded bg-cyber-bg border border-cyber-border text-slate-300">Ubuntu / Debian</span>
+                        <span class="px-2 py-1 rounded bg-cyber-bg border border-cyber-border text-slate-300">Bash Scripting</span>
+                        <span class="px-2 py-1 rounded bg-cyber-bg border border-cyber-border text-slate-300">Systemd / UFW</span>
+                    </div>
+                </div>
+
+                <!-- Skill 5 -->
+                <div class="glass-card p-6 rounded-xl relative group">
+                    <div class="w-12 h-12 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-box-archive"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-2">SIEM &amp; Log Analysis</h4>
+                    <p class="text-slate-400 text-sm mb-4">
+                        Monitorización continua de alertas, detección de anomalias en registros del sistema e investigación de eventos sospechosos.
+                    </p>
+                    <div class="flex flex-wrap gap-2 font-mono text-[11px]">
+                        <span class="px-2 py-1 rounded bg-cyber-bg border border-cyber-border text-slate-300">Splunk</span>
+                        <span class="px-2 py-1 rounded bg-cyber-bg border border-cyber-border text-slate-300">Wazuh</span>
+                        <span class="px-2 py-1 rounded bg-cyber-bg border border-cyber-border text-slate-300">ELK Stack</span>
+                    </div>
+                </div>
+
+                <!-- Skill 6 -->
+                <div class="glass-card p-6 rounded-xl relative group">
+                    <div class="w-12 h-12 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-2">Cryptography &amp; Security Standards</h4>
+                    <p class="text-slate-400 text-sm mb-4">
+                        Implementación de PKI, certificados SSL/TLS, hashing, firmas digitales y adaptación a marcos de trabajo como NIST / ISO 27001.
+                    </p>
+                    <div class="flex flex-wrap gap-2 font-mono text-[11px]">
+                        <span class="px-2 py-1 rounded bg-cyber-bg border border-cyber-border text-slate-300">OpenSSL</span>
+                        <span class="px-2 py-1 rounded bg-cyber-bg border border-cyber-border text-slate-300">NIST Framework</span>
+                        <span class="px-2 py-1 rounded bg-cyber-bg border border-cyber-border text-slate-300">ISO 27001</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Interactive Terminal Simulator -->
+    <section id="terminal" class="py-20 relative bg-cyber-card/30">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <h2 class="text-xs font-mono text-cyber-neon tracking-widest uppercase mb-2">// CONSOLA INTERACTIVA</h2>
+                <h3 class="text-3xl font-bold text-white">Interactive Cyber Shell</h3>
+                <p class="text-slate-400 mt-2 text-sm">
+                    Explora mi perfil a través de comandos. Escribe <code class="text-cyber-cyan bg-cyber-bg px-1.5 py-0.5 rounded font-mono">help</code> para ver la lista de comandos disponibles.
+                </p>
+            </div>
+
+            <!-- Terminal Window Container -->
+            <div class="scanline rounded-xl bg-[#030712] border border-cyber-border shadow-2xl overflow-hidden font-mono text-sm text-slate-200">
+                <!-- Terminal Header Bar -->
+                <div class="bg-[#0b1329] px-4 py-3 flex items-center justify-between border-b border-cyber-border">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-red-500 cursor-pointer" onclick="clearTerminal()"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                        <span class="ml-2 text-xs text-slate-400">guest@cybersec-portfolio:~</span>
+                    </div>
+                    <div class="text-xs text-cyber-cyan/70 flex items-center gap-1">
+                        <i class="fa-solid fa-lock text-[10px]"></i> SECURE_SHELL_V2.4
+                    </div>
+                </div>
+
+                <!-- Terminal Output Container -->
+                <div id="terminal-output" class="p-6 h-80 overflow-y-auto space-y-3 leading-relaxed">
+                    <div>
+                        <p class="text-cyber-cyan font-bold">Welcome to CyberSec Interactive Shell [Version 2026.1]</p>
+                        <p class="text-slate-400 text-xs">System Status: <span class="text-cyber-neon">NORMAL</span> | Cisco Credential Badge: <span class="text-cyber-neon">VERIFIED</span></p>
+                        <p class="text-slate-400 text-xs mt-1">Escribe <span class="text-cyber-neon font-bold">'help'</span> para desplegar comandos disponibles.</p>
+                    </div>
+                </div>
+
+                <!-- Terminal Input Area -->
+                <div class="px-6 py-3 bg-[#080d1a] border-t border-cyber-border flex items-center gap-2">
+                    <span class="text-cyber-neon font-bold">visitor@cybersec:~$</span>
+                    <input type="text" id="terminal-input" class="w-full bg-transparent text-cyber-cyan outline-none font-mono focus:ring-0 text-sm" placeholder="escribe un comando aquí..." autocomplete="off" autofocus>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Projects & Security Labs -->
+    <section id="projects" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-mono text-cyber-cyan tracking-widest uppercase mb-2">// PRÁCTICAS &amp; LABORATORIOS</h2>
+                <h3 class="text-3xl sm:text-4xl font-bold text-white">Proyectos y Simulación de Entornos</h3>
+                <p class="text-slate-400 mt-3">Demostración de topologías, defensa en red y resolución de desafíos de seguridad.</p>
+            </div>
+
+            <!-- Project Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project Card 1 -->
+                <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group">
+                    <div>
+                        <div class="h-48 bg-cyber-card border-b border-cyber-border relative flex items-center justify-center overflow-hidden">
+                            <i class="fa-solid fa-network-wired text-6xl text-cyber-cyan/30 group-hover:scale-110 transition-transform duration-500"></i>
+                            <span class="absolute top-3 right-3 px-2 py-1 bg-cyber-bg/80 border border-cyber-cyan/40 rounded text-cyber-cyan font-mono text-[10px]">
+                                NETWORK TOPOLOGY
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-white group-hover:text-cyber-cyan transition-colors">Diseño de Red Segura DMZ Enterprise</h4>
+                            <p class="text-slate-400 text-sm mt-2">
+                                Topología diseñada en Cisco Packet Tracer aplicando segmentación mediante VLANs, listas de control de acceso (ACLs) y zona desmilitarizada DMZ.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 font-mono text-xs flex justify-between items-center border-t border-cyber-border/40 mt-4">
+                        <span class="text-cyber-neon">Cisco / Packet Tracer</span>
+                        <a href="#contact" class="text-slate-300 hover:text-cyber-cyan flex items-center gap-1">
+                            Detalles <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group">
+                    <div>
+                        <div class="h-48 bg-cyber-card border-b border-cyber-border relative flex items-center justify-center overflow-hidden">
+                            <i class="fa-solid fa-shield-virus text-6xl text-cyber-neon/30 group-hover:scale-110 transition-transform duration-500"></i>
+                            <span class="absolute top-3 right-3 px-2 py-1 bg-cyber-bg/80 border border-cyber-neon/40 rounded text-cyber-neon font-mono text-[10px]">
+                                SOC &amp; MONITOREO
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-white group-hover:text-cyber-neon transition-colors">Despliegue SIEM Wazuh &amp; Log Analysis</h4>
+                            <p class="text-slate-400 text-sm mt-2">
+                                Implementación de un agente SIEM para análisis de eventos en tiempo real, detección de intentos de fuerza bruta SSH y alertas automáticas.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 font-mono text-xs flex justify-between items-center border-t border-cyber-border/40 mt-4">
+                        <span class="text-cyber-cyan">Linux / SIEM</span>
+                        <a href="#contact" class="text-slate-300 hover:text-cyber-neon flex items-center gap-1">
+                            Detalles <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group">
+                    <div>
+                        <div class="h-48 bg-cyber-card border-b border-cyber-border relative flex items-center justify-center overflow-hidden">
+                            <i class="fa-solid fa-flag text-6xl text-purple-500/30 group-hover:scale-110 transition-transform duration-500"></i>
+                            <span class="absolute top-3 right-3 px-2 py-1 bg-cyber-bg/80 border border-purple-500/40 rounded text-purple-400 font-mono text-[10px]">
+                                CTF &amp; ETHICAL HACKING
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">Write-ups &amp; Desafíos CTF TryHackMe</h4>
+                            <p class="text-slate-400 text-sm mt-2">
+                                Resolución documentada de máquinas virtuales orientadas a análisis de puertos, vulnerabilidades en servicios web y escalada de privilegios.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 font-mono text-xs flex justify-between items-center border-t border-cyber-border/40 mt-4">
+                        <span class="text-purple-400">TryHackMe / Pentesting</span>
+                        <a href="#contact" class="text-slate-300 hover:text-purple-400 flex items-center gap-1">
+                            Detalles <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Contact & Footer -->
+    <section id="contact" class="py-20 relative bg-cyber-card/50 border-t border-cyber-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Contact Info -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <h2 class="text-xs font-mono text-cyber-cyan tracking-widest uppercase mb-2">// CANALES DE CONTACTO</h2>
+                        <h3 class="text-3xl font-bold text-white">¿Iniciamos una Colaboración?</h3>
+                        <p class="text-slate-400 mt-3 text-sm leading-relaxed">
+                            Disponible para posiciones de Analista de Ciberseguridad, Administrador de Redes, Consultorías o Proyectos de Auditoría.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4 font-mono text-sm">
+                        <div class="flex items-center gap-4 p-4 glass-card rounded-xl">
+                            <div class="w-10 h-10 rounded-lg bg-cyber-cyan/10 border border-cyber-cyan/30 flex items-center justify-center text-cyber-cyan">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400">EMAIL ENCRIPTADO</p>
+                                <a href="mailto:contact.bejadomicrac@gmail.com" class="text-white hover:text-cyber-cyan font-semibold">contact.bejadomicrac@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 p-4 glass-card rounded-xl">
+                            <div class="w-10 h-10 rounded-lg bg-cyber-neon/10 border border-cyber-neon/30 flex items-center justify-center text-cyber-neon">
+                                <i class="fa-brands fa-linkedin"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400">RED PROFESIONAL</p>
+                                <a href="https://linkedin.com" target="_blank" class="text-white hover:text-cyber-neon font-semibold">linkedin.com/in/Benjadomicrack</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 p-4 glass-card rounded-xl">
+                            <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
+                                <i class="fa-brands fa-github"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400">REPOSITORIOS DE CÓDIGO</p>
+                                <a href="https://github.com" target="_blank" class="text-white hover:text-purple-400 font-semibold">github.com/Benjadomicrack</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:col-span-7">
+                    <form id="contact-form" class="glass-card p-8 rounded-2xl space-y-6">
+                        <h4 class="text-xl font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane text-cyber-cyan"></i> Enviar Mensaje Directo
+                        </h4>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-mono text-slate-300 uppercase mb-2">Nombre / Entidad</label>
+                                <input type="text" required class="w-full bg-cyber-bg border border-cyber-border rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-cyber-cyan transition-colors" placeholder="Ej: Maria Gómez">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono text-slate-300 uppercase mb-2">Correo Electrónico</label>
+                                <input type="email" required class="w-full bg-cyber-bg border border-cyber-border rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-cyber-cyan transition-colors" placeholder="nombre@empresa.com">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-mono text-slate-300 uppercase mb-2">Asunto</label>
+                            <input type="text" required class="w-full bg-cyber-bg border border-cyber-border rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-cyber-cyan transition-colors" placeholder="Propuesta de proyecto / Evaluación de Ciberseguridad">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-mono text-slate-300 uppercase mb-2">Mensaje</label>
+                            <textarea rows="4" required class="w-full bg-cyber-bg border border-cyber-border rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-cyber-cyan transition-colors" placeholder="Escribe aquí los detalles del mensaje..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-3.5 bg-cyber-cyan text-cyber-bg font-mono font-bold rounded-lg hover:bg-cyber-neon transition-colors flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,240,255,0.3)]">
+                            <i class="fa-solid fa-lock text-xs"></i> ENVIAR MENSAJE SEGURO
+                        </button>
+                    </form>
+                    <!-- Notification box -->
+                    <div id="form-status" class="hidden mt-4 p-4 rounded-lg font-mono text-xs text-center"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-[#040810] border-t border-cyber-border/40 text-center font-mono text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                &copy; 2026 Portafolio de Ciberseguridad. Cisco Certified Credential Holder.
+            </div>
+            <div class="flex items-center gap-4 text-slate-400">
+                <span class="text-cyber-neon flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-cyber-neon animate-pulse"></span> SYSTEM SECURE
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Logic Script -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Contact Form Handler (No alert used)
+        const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            formStatus.classList.remove('hidden', 'bg-red-900/50', 'text-red-300', 'border-red-500');
+            formStatus.classList.add('bg-cyber-neon/10', 'text-cyber-neon', 'border', 'border-cyber-neon/40');
+            formStatus.innerHTML = '<i class="fa-solid fa-check-circle"></i> ¡Mensaje enviado con éxito! Me pondré en contacto contigo pronto.';
+            contactForm.reset();
+
+            setTimeout(() => {
+                formStatus.classList.add('hidden');
+            }, 6000);
+        });
+
+        // Interactive Terminal CLI Logic
+        const terminalInput = document.getElementById('terminal-input');
+        const terminalOutput = document.getElementById('terminal-output');
+
+        const commands = {
+            'help': 'Comandos disponibles:<br>' +
+                    ' - <span class="text-cyber-cyan">whoami</span>: Información sobre mí<br>' +
+                    ' - <span class="text-cyber-cyan">certs</span>: Detalle de mi certificación Cisco<br>' +
+                    ' - <span class="text-cyber-cyan">skills</span>: Listado de competencias técnicas<br>' +
+                    ' - <span class="text-cyber-cyan">contact</span>: Datos de contacto<br>' +
+                    ' - <span class="text-cyber-cyan">clear</span>: Limpiar pantalla de consola',
+            'whoami': 'Analista & Especialista en Ciberseguridad. Enfocado en defensa de red, análisis de amenazas e infraestructura segura.',
+            'certs': '<span class="text-cyber-neon">Acreditación Oficial Cisco Systems:</span><br>ID Credly: 7b80a0b3-344e-42ab-8b50-c640f1566bff<br>Estado: Verificado & Activo',
+            'skills': 'Network Security | Penetration Testing | Vulnerability Assessment | Linux Hardening | Wireshark | Nmap | SIEM Wazuh',
+            'contact': 'Email: contact.bejadomicrac@gmail.com | LinkedIn: linkedin.com/in/Benjadomicrack | GitHub: github.com/Benjadomicrack'
+        };
+
+        terminalInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const inputVal = terminalInput.value.trim().toLowerCase();
+                
+                // Print command prompt entry
+                const cmdLine = document.createElement('div');
+                cmdLine.innerHTML = `<span class="text-cyber-neon font-bold">visitor@cybersec:~$</span> <span class="text-white">${terminalInput.value}</span>`;
+                terminalOutput.appendChild(cmdLine);
+
+                if (inputVal === 'clear') {
+                    terminalOutput.innerHTML = '';
+                } else if (commands[inputVal]) {
+                    const responseLine = document.createElement('div');
+                    responseLine.className = 'text-slate-300 pl-4 border-l-2 border-cyber-cyan my-1 text-xs';
+                    responseLine.innerHTML = commands[inputVal];
+                    terminalOutput.appendChild(responseLine);
+                } else if (inputVal !== '') {
+                    const errorLine = document.createElement('div');
+                    errorLine.className = 'text-red-400 text-xs pl-4';
+                    errorLine.innerHTML = `Comando no reconocido: '${inputVal}'. Escribe <span class="text-cyber-cyan">'help'</span> para ayuda.`;
+                    terminalOutput.appendChild(errorLine);
+                }
+
+                terminalInput.value = '';
+                terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            }
+        });
+
+        function clearTerminal() {
+            terminalOutput.innerHTML = '<p class="text-slate-400 text-xs">Terminal reiniciada.</p>';
+        }
+    </script>
+</body>
+</html>
